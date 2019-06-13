@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "outDir": "es/",
+    "baseUrl": ".",
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "include": ["components/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

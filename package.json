@@ -1,0 +1,57 @@
+{
+  "name": "alita-kit",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "alitajs/alita-kit",
+  "homepage": "https://github.com/alitajs/alita-kit",
+  "bugs": {
+    "url": "https://github.com/alitajs/alita-kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alitajs/alita-kit"
+  },
+  "scripts": {
+    "build": "npm run build:less && npm run build:lib && npm run build:es",
+    "build:less": "node ./scripts/less.js",
+    "build:lib": "tsc --build tsconfig.json",
+    "build:es": "tsc --build tsconfig.es.json",
+    "lint": "npm run lint:ts && npm run lint:less",
+    "lint:ts": "tslint -p . -c tslint.yml",
+    "lint:less": "stylelint \"components/**/*.less\" --syntax less",
+    "coverage": "cat ./coverage/lcov.info | coveralls",
+    "test": "",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "components/**/*.{ts,tsx}": [
+      "tslint --fix -c tslint.yml",
+      "git add"
+    ],
+    "components/**/*.less": [
+      "stylelint --fix --syntax less",
+      "git add"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "husky": "^2.2.0",
+    "less": "^3.9.0",
+    "lint-staged": "^8.1.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "stylelint": "^10.0.1",
+    "stylelint-config-prettier": "^5.1.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.1.0",
+    "stylelint-order": "^3.0.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0"
+  }
+}
