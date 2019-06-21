@@ -1,5 +1,5 @@
 {
-  "name": "alita-kit",
+  "name": "@alitajs/alita-kit",
   "version": "1.0.0",
   "license": "MIT",
   "description": "alitajs/alita-kit",
@@ -12,37 +12,55 @@
     "url": "https://github.com/alitajs/alita-kit"
   },
   "scripts": {
+    "start": "alita dev",
     "build": "npm run build:less && npm run build:lib && npm run build:es",
     "build:less": "node ./scripts/less.js",
     "build:lib": "tsc --build tsconfig.json",
     "build:es": "tsc --build tsconfig.es.json",
-    "lint": "npm run lint:ts && npm run lint:less",
-    "lint:ts": "tslint -p . -c tslint.yml",
-    "lint:less": "stylelint \"components/**/*.less\" --syntax less",
     "coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "",
-    "precommit": "lint-staged"
+    "lint-staged": "lint-staged",
+    "lint": "npm run lint:js && npm run lint:style",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty  ./ && npm run lint:style",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./",
+    "lint:style": "stylelint --fix '**/*.less' --syntax less",
+    "prettier": "prettier -c --write **/*",
+    "format-imports": "import-sort --write '**/*.{js,jsx,ts,tsx}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
   },
   "lint-staged": {
-    "components/**/*.{ts,tsx}": [
-      "tslint --fix -c tslint.yml",
+    "**/*.less": "stylelint --syntax less",
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write",
       "git add"
     ],
-    "components/**/*.less": [
-      "stylelint --fix --syntax less",
-      "git add"
-    ]
+    "**/*.{js,jsx}": "npm run lint-staged:js",
+    "**/*.{js,ts,tsx}": "npm run lint-staged:js"
   },
-  "dependencies": {},
+  "peerDependencies": {
+    "antd-mobile": "^2.2.14"
+  },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "@umijs/fabric": "^1.0.5",
+    "alita": "^0.3.2",
+    "cross-env": "^5.2.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-flowtype": "^3.10.3",
     "husky": "^2.2.0",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-parser-babylon": "^6.0.0",
+    "import-sort-parser-typescript": "^6.0.0",
+    "import-sort-style-module": "^6.0.0",
     "less": "^3.9.0",
     "lint-staged": "^8.1.6",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
     "stylelint": "^10.0.1",
     "stylelint-config-prettier": "^5.1.0",
@@ -50,9 +68,11 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.1.0",
     "stylelint-order": "^3.0.0",
-    "tslint": "^5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
     "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "@alitajs/alita-layout": "^1.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
