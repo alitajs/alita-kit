@@ -9,29 +9,46 @@ import halfStar from '../../components/BookList/img/half_star.png';
 
 import myStyle from './styles/bookList.less';
 
+export interface BookInfo {
+  id: string; //id
+  imgUrl: string; // 图片url
+  name: string; //名称
+  author: string; //作者
+  type: string; //类型
+  score: string; //评分等级
+  markPeople: number; //评价人数
+  desc: string; //简单描述
+}
+
 export interface BookListPro {
-  listData: any[];
+  listData: BookInfo[];
   height: number;
   selecScoreStar: string;
   defaultSoceStar: string;
   halfScoeStar: string;
-  getPageData: () => any[];
+  getPageData: () => BookInfo[];
   cellClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  listImgStyle: any; //图片样式
-  listNameStyle: any; //名称样式
-  listAuthorStyle: any; //作者的样式
-  listMarkStyle: any; //评论的样式
-  listScoreStyle: any; //评分字体的样式
-  listTypeStyle: any; //图书类型的样式
+  listImgStyle: React.CSSProperties; //图片样式
+  listNameStyle: React.CSSProperties; //名称样式
+  listAuthorStyle: React.CSSProperties; //作者的样式
+  listMarkStyle: React.CSSProperties; //评论的样式
+  listScoreStyle: React.CSSProperties; //评分字体的样式
+  listTypeStyle: React.CSSProperties; //图书类型的样式
   listDesStyle: React.CSSProperties; //图书描述的样式
+  loadingText: string; //加载过程中提示的语句
+  loadingFishTex: string; //数据未加载完成，当前页加载完成的提示
+  noDataTip: string; //数据加载完成底部提示
 }
 export interface PageState {
   dataSource: any;
   isLoading: boolean;
   windowWidth: number;
   width: number;
-  tempList: any[]; //页面列表的所有数据
+  tempList: BookInfo[]; //页面列表的所有数据
   hasMore: boolean;
+  stateLoadingText: string;
+  stateLoadingFishTex: string;
+  stateNoDataTip: string;
 }
 class BookList extends React.Component<BookListPro, PageState> {
   state: PageState = {
@@ -41,6 +58,9 @@ class BookList extends React.Component<BookListPro, PageState> {
     width: document.documentElement.clientWidth,
     tempList: this.props.listData,
     hasMore: true,
+    stateLoadingText: this.props.loadingText || '加载...',
+    stateLoadingFishTex: this.props.loadingFishTex || '加载完成',
+    stateNoDataTip: this.props.noDataTip || '我是有底线的~',
   };
   constructor(props: any) {
     super(props);
@@ -54,23 +74,25 @@ class BookList extends React.Component<BookListPro, PageState> {
     const score = parseFloat(param.score);
     const quo = parseInt(score / 2);
     const residue = score % 2;
-    let _html = [];
+    let scoreHtml = [];
     for (let i = 0; i < quo; i++) {
-      _html.push(<img src={this.props.selecScoreStar || scoreStar} className={myStyle.start} />);
+      scoreHtml.push(
+        <img src={this.props.selecScoreStar || scoreStar} className={myStyle.start} />,
+      );
     }
     if (residue > 0.5) {
-      _html.push(<img src={this.props.halfScoeStar || halfStar} className={myStyle.start} />);
+      scoreHtml.push(<img src={this.props.halfScoeStar || halfStar} className={myStyle.start} />);
     } else {
-      _html.push(
+      scoreHtml.push(
         <img src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
       );
     }
     for (var j = 0; j < 4 - quo; j++) {
-      _html.push(
+      scoreHtml.push(
         <img src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
       );
     }
-    return _html;
+    return scoreHtml;
   };
   /**
    * 上滑事件
@@ -157,7 +179,11 @@ class BookList extends React.Component<BookListPro, PageState> {
           dataSource={this.state.dataSource}
           renderFooter={() => (
             <div style={{ padding: 30, textAlign: 'center' }}>
-              {this.state.isLoading ? '加载...' : this.state.hasMore ? '加载完成' : '我是有底线的~'}
+              {this.state.isLoading
+                ? this.state.stateLoadingText
+                : this.state.hasMore
+                ? this.state.stateLoadingFishTex
+                : this.state.stateNoDataTip}
             </div>
           )}
           renderRow={row}
