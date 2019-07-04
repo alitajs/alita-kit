@@ -23,7 +23,7 @@ export interface BookListPro {
   listMarkStyle: any; //评论的样式
   listScoreStyle: any; //评分字体的样式
   listTypeStyle: any; //图书类型的样式
-  listDesStyle: any; //图书描述的样式
+  listDesStyle: React.CSSProperties; //图书描述的样式
 }
 export interface PageState {
   dataSource: any;
