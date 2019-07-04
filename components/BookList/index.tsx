@@ -16,7 +16,7 @@ export interface BookListPro {
   defaultSoceStar: string;
   halfScoeStar: string;
   getPageData: () => any[];
-  cellClick: (event: any) => void;
+  cellClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   listImgStyle: any; //图片样式
   listNameStyle: any; //名称样式
   listAuthorStyle: any; //作者的样式
