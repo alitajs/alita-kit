@@ -140,7 +140,7 @@ class BookList extends React.Component<BookListPro, PageState> {
               </span>
               <span className={myStyle.markPeople} style={this.props.listMarkStyle}>
                 {' '}
-                | {rowDataObj.markPeople} 人评价
+                | {rowDataObj.markPeople || 0} 人评价
               </span>
             </div>
             <div className={myStyle.bookListCellRightDes} style={this.props.listDesStyle}>
