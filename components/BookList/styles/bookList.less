@@ -1,0 +1,83 @@
+@lessPrefix: bookList;
+
+.@{lessPrefix} {
+  &Conent {
+    width: 100%;
+  }
+
+  &Cell {
+    display: flex;
+    border-bottom: solid 1px #9b9b9b;
+    padding: 30px 10px;
+
+    &Left {
+      flex: 1;
+
+      img {
+        width: 280px;
+      }
+    }
+
+    &Right {
+      flex: 2;
+      margin-top: -7px;
+      margin-left: 10px;
+
+      div {
+        margin: 10px;
+      }
+
+      label {
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        font-size: 30px;
+      }
+
+      &Type {
+        position: absolute;
+        right: 25px;
+        margin-top: -55px;
+        padding: 5px 11px;
+        background: #76a4b3;
+        color: #ffffff;
+      }
+
+      &Des {
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        color: #a7a7a7;
+        height: 123px;
+        font-size: 26px;
+      }
+
+      .start {
+        width: 8%;
+      }
+      .markPeople {
+        position: absolute;
+        margin-left: 53px;
+      }
+      .score {
+        color: #fa595f;
+        margin-left: 5px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.hideEle {
+  display: none;
+}
+
+.grayFont {
+  color: #a7a7a7;
+  font-size: 26px;
+}
