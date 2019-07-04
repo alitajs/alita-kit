@@ -10,7 +10,7 @@ import BookList from '../../components/BookList';
     markPeople 评价人数
     des 简单描述
  */
-const listData = [
+const listData: BookListDataItem[] = [
   {
     id: '1',
     imgUrl: '',
