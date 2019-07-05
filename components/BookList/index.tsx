@@ -1,9 +1,9 @@
 import React from 'react';
 import { ListView } from 'antd-mobile';
-import defalutImg from '../../components/BookList/img/default.jpg';
-import scoreStar from '../../components/BookList/img/select_star.png';
-import greyScoreStar from '../../components/BookList/img/default_star.png';
-import halfStar from '../../components/BookList/img/half_star.png';
+import defalutImg from './img/default.jpg';
+import scoreStar from './img/select_star.png';
+import greyScoreStar from './img/default_star.png';
+import halfStar from './img/half_star.png';
 
 // import myStyle from './styles/bookList.less';
 
@@ -77,19 +77,19 @@ class BookList extends React.Component<BookListPro, PageState> {
     let scoreHtml = [];
     for (let i = 0; i < quo; i++) {
       scoreHtml.push(
-        <img src={this.props.selecScoreStar || scoreStar} className={myStyle.start} />,
+        <img alt='' src={this.props.selecScoreStar || scoreStar} className={myStyle.start} />,
       );
     }
     if (residue > 0.5) {
-      scoreHtml.push(<img src={this.props.halfScoeStar || halfStar} className={myStyle.start} />);
+      scoreHtml.push(<img alt='' src={this.props.halfScoeStar || halfStar} className={myStyle.start} />);
     } else {
       scoreHtml.push(
-        <img src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
+        <img alt='' src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
       );
     }
     for (var j = 0; j < 4 - quo; j++) {
       scoreHtml.push(
-        <img src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
+        <img alt='' src={this.props.defaultSoceStar || greyScoreStar} className={myStyle.start} />,
       );
     }
     return scoreHtml;
@@ -123,22 +123,23 @@ class BookList extends React.Component<BookListPro, PageState> {
     let labelWidth = 0;
     let index = 0;
 
-    const row = (rowData: any, sectionID: any, rowID: any) => {
+    const row = () => {
       if (index > this.state.tempList.length - 1) {
         index = 0;
       }
-      const rowDataObj = this.state.tempList[index++];
+      index += 1;
+      const rowDataObj = this.state.tempList[index];
       if (rowDataObj.type) {
         labelWidth = 0.5;
       } else {
         labelWidth = 0.56;
       }
-      const _html = this.getScoreHtml(rowDataObj);
+      const scoreHtml = this.getScoreHtml(rowDataObj);
 
       return (
         <div className={myStyle.bookListCell} id={rowDataObj.id} onClick={this.props.cellClick}>
           <div className={myStyle.bookListCellLeft}>
-            <img src={rowDataObj.imgUrl || defalutImg} style={this.props.listImgStyle} />
+            <img alt='' src={rowDataObj.imgUrl || defalutImg} style={this.props.listImgStyle} />
           </div>
           <div className={myStyle.bookListCellRight}>
             <div className={myStyle.bookListCellRightName} style={this.props.listNameStyle}>
@@ -156,7 +157,7 @@ class BookList extends React.Component<BookListPro, PageState> {
               {rowDataObj.author} 著
             </div>
             <div className={myStyle.grayFont} style={{ marginTop: 25 + 'px' }}>
-              {_html}
+              {scoreHtml}
               <span className={myStyle.score} style={this.props.listScoreStyle}>
                 {rowDataObj.score}
               </span>
@@ -179,11 +180,7 @@ class BookList extends React.Component<BookListPro, PageState> {
           dataSource={this.state.dataSource}
           renderFooter={() => (
             <div style={{ padding: 30, textAlign: 'center' }}>
-              {this.state.isLoading
-                ? this.state.stateLoadingText
-                : this.state.hasMore
-                ? this.state.stateLoadingFishTex
-                : this.state.stateNoDataTip}
+              {this.state.isLoading ? this.state.stateLoadingText : this.state.hasMore ? this.state.stateLoadingFishTex : this.state.stateNoDataTip}
             </div>
           )}
           renderRow={row}

@@ -21,3 +21,4 @@ coverage
 # editor
 /.vscode
 .umi
+.idea

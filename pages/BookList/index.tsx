@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import BookList from '../../components/BookList';
+import BookList, { BookInfo } from '../../components/BookList';
 
 /**
  * imgUrl 图片url
@@ -10,13 +10,13 @@ import BookList from '../../components/BookList';
     markPeople 评价人数
     des 简单描述
  */
-const listData: BookListDataItem[] = [
+const listData: BookInfo[] = [
   {
     id: '1',
     imgUrl: '',
     name: '小孩',
     author: '大冰',
-    // type: '',
+    type: '',
     score: '9.0',
     markPeople: 100,
     desc: '走过的路越多，越喜欢宅着。见过的人越多，越喜欢孩子。',
@@ -28,6 +28,7 @@ const listData: BookListDataItem[] = [
     author: '冷莹',
     score: '6.3',
     markPeople: 109,
+    type: '',
     desc:
       '只有成长，才会给我们安全感。当你还年轻，最艰难的时刻，永远是“当下”，觉得它难是因为你在上坡，只要你怀着希望，永不停歇，强大的意志就会在你的内',
   },
